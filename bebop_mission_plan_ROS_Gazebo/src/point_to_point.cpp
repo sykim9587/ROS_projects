@@ -7,9 +7,9 @@ PointToPoint::PointToPoint(int argc, char** argv)
     this->argc = argc;
     this->argv = argv;
     
-    this->tarLat = 48.87896;  //36.519
+    this->tarLat = 36.519640;  //36.519 //48.87896 //36.52048
     this->tarAlt = 2;
-    this->tarLog = 2.36777; //127.172
+    this->tarLog = 127.172944; //127.172 //2.36777
     this->tarAtt = 0;
 
     this->isTarAlt = true;
@@ -41,7 +41,7 @@ void PointToPoint::checkTarget(double lat, double log, double alt, double att)
 
         twist.linear.x = 0;       //forward, backward (-)
         twist.linear.y = 0;         //left (+), and right (-)
-        twist.linear.z = 0.5;         //up(+), down (-)
+        twist.linear.z = 0.1;         //up(+), down (-)
 
         twist.angular.x = 0;
         twist.angular.y = 0;
@@ -67,9 +67,16 @@ void PointToPoint::checkTarget(double lat, double log, double alt, double att)
         double x = cos(lat1) * sin(lat2) - sin(lat1)*cos(lat2)*cos(lon_diff);
 
         this->tarAtt = atan2(y,x);
+
+        double var = att - this->tarAtt;
+        double turn = 0.0;
+        if (var >= 0 && var<=3.14)
+            turn = 0.1;
+        else
+        {
+            turn = -0.1;
+        }
         
-
-
         ROS_INFO("%f",this->tarAtt);
 
 
@@ -78,10 +85,9 @@ void PointToPoint::checkTarget(double lat, double log, double alt, double att)
         twist.linear.x = 0;       //forward, backward (-)
         twist.linear.y = 0;         //left (+), and right (-)
         twist.linear.z = 0;         //up(+), down (-)
-
         twist.angular.x = 0;
         twist.angular.y = 0;
-        twist.angular.z = 0.1;        //left turn, right turn (-)
+        twist.angular.z = turn;        //left turn, right turn (-)
 
         cmd_pub.publish(twist);
         ros::Duration(1).sleep();
@@ -95,7 +101,7 @@ void PointToPoint::checkTarget(double lat, double log, double alt, double att)
     {
         ROS_INFO("position checking");
         geometry_msgs::Twist twist;
-        twist.linear.x = 0.5;       //forward, backward (-)
+        twist.linear.x = 0.2;       //forward, backward (-)
         twist.linear.y = 0;         //left (+), and right (-)
         twist.linear.z = 0;         //up(+), down (-)
 
@@ -106,7 +112,8 @@ void PointToPoint::checkTarget(double lat, double log, double alt, double att)
         this->cmd_pub.publish(twist);
         ros::Duration(1).sleep();
 
-        if((lat <= (this->tarLat + 0.00001)) && (lat >= (this->tarLat - 0.00001))){
+        if((lat <= (this->tarLat + 0.00005)) && (lat >= (this->tarLat - 0.00005))
+            && (log <= (this->tarLog + 0.00005)) && (log >= (this->tarLog - 0.00005))){
             this->isTarLatLog = false;
             this->isFinish = true;
             ROS_INFO("while loop finish");

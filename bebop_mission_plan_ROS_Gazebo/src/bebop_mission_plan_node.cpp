@@ -11,7 +11,7 @@ int main(int argc, char** argv)
     while(1){
     beboppub.takeoff();
     ros::spinOnce();
-    if(bebopsub.altitude >= 0.9 && bebopsub.altitude <= 1.1)
+    if(bebopsub.altitude2 >= 0.9 && bebopsub.altitude2 <= 1.1)
         break;
 
     }
