@@ -1,0 +1,35 @@
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "",
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "includePath": [
+                "/home/ros/catkin_ws/devel/include/**",
+                "/opt/ros/kinetic/include/**",
+                "/home/ros/catkin_ws/src/aruco_ros/aruco/include/**",
+                "/home/ros/catkin_ws/src/aruco_ros/aruco_ros/include/**",
+                "/home/ros/catkin_ws/src/bebop_control/include/**",
+                "/home/ros/catkin_ws/src/bebop_db/include/**",
+                "/home/ros/catkin_ws/src/bebop_autonomy/bebop_driver/include/**",
+                "/home/ros/catkin_ws/src/bebop_logger/include/**",
+                "/home/ros/catkin_ws/src/bebop_mission_plan/include/**",
+                "/home/ros/catkin_ws/src/bebop_tele/include/**",
+                "/home/ros/catkin_ws/src/get_aurco_pose/include/**",
+                "/home/ros/catkin_ws/src/get_marder_data/include/**",
+                "/home/ros/catkin_ws/src/multi_read/include/**",
+                "/home/ros/catkin_ws/src/turtlebot3_ar_tracker/include/**",
+                "/home/ros/catkin_ws/src/turtlebot3_parking/include/**",
+                "/home/ros/catkin_ws/src/turtlebot3/turtlebot3_slam/include/**",
+                "/usr/include/**"
+            ],
+            "name": "ROS",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "gnu11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}

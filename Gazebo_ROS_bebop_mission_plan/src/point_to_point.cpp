@@ -7,9 +7,9 @@ PointToPoint::PointToPoint(int argc, char** argv)
     this->argc = argc;
     this->argv = argv;
     
-    this->tarLat = 36.519;
-    this->tarAlt = 4;
-    this->tarLog = 127.172;
+    this->tarLat = 48.87896;  //36.519
+    this->tarAlt = 2;
+    this->tarLog = 2.36777; //127.172
     this->tarAtt = 0;
 
     this->isTarAlt = true;
@@ -58,6 +58,7 @@ void PointToPoint::checkTarget(double lat, double log, double alt, double att)
     else if(this->isTarAtt)
     {
         ROS_INFO("attitude checking");
+        
         //getting the target angle
         double lat1 = (lat * 3.14)/180;
         double lat2 = (this->tarLat*3.14)/180;
@@ -66,6 +67,9 @@ void PointToPoint::checkTarget(double lat, double log, double alt, double att)
         double x = cos(lat1) * sin(lat2) - sin(lat1)*cos(lat2)*cos(lon_diff);
 
         this->tarAtt = atan2(y,x);
+        
+
+
         ROS_INFO("%f",this->tarAtt);
 
 
@@ -77,12 +81,12 @@ void PointToPoint::checkTarget(double lat, double log, double alt, double att)
 
         twist.angular.x = 0;
         twist.angular.y = 0;
-        twist.angular.z = 0.5;        //left turn, right turn (-)
+        twist.angular.z = 0.1;        //left turn, right turn (-)
 
         cmd_pub.publish(twist);
         ros::Duration(1).sleep();
 
-        if((att <= (this->tarAtt + 0.1)) && (att >= (this->tarAtt - 0.1))){
+        if((att <= (this->tarAtt + 0.05)) && (att >= (this->tarAtt - 0.05))){
             this->isTarAtt = false;
             this->isTarLatLog = true;
         }
@@ -102,7 +106,7 @@ void PointToPoint::checkTarget(double lat, double log, double alt, double att)
         this->cmd_pub.publish(twist);
         ros::Duration(1).sleep();
 
-        if((lat <= (this->tarLat + 0.5)) && (lat >= (this->tarLat - 0.5))){
+        if((lat <= (this->tarLat + 0.00001)) && (lat >= (this->tarLat - 0.00001))){
             this->isTarLatLog = false;
             this->isFinish = true;
             ROS_INFO("while loop finish");
