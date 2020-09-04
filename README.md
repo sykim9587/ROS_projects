@@ -1,4 +1,4 @@
-# ROS_study_turtlebot
+# ROS_projects
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
